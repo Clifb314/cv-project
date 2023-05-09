@@ -28,6 +28,7 @@ class Education extends Component {
         this.displayForm = this.displayForm.bind(this)
         this.addForm = this.addForm.bind(this)
         this.increase = this.increase.bind(this)
+        this.remove = this.remove.bind(this)
     }
 
     handleChange(e) {
@@ -124,9 +125,25 @@ class Education extends Component {
               <button type="submit" form="school">
                 Submit Section
               </button>
+              <button type="button" onClick={this.remove}>Remove</button>
             </fieldset>
           </form>
         )
+    }
+
+    remove(e) {
+      if (this.state.forms < 2) {
+        return
+      } else {
+        const form = e.target.form
+        while (form.firstChild) {
+          form.removeChild(form.firstChild)
+        }
+        form.hidden = true
+        this.setState({
+          forms: this.state.forms - 1
+        })
+      }
     }
 
     addForm() {
@@ -144,10 +161,41 @@ class Education extends Component {
         )
     }
 
-    increase() {
-        this.setState({
-            forms: this.state.forms + 1
-        })
+    increase(e) {
+      const { schoolName, study, grad, start, end, forms } = this.state
+
+      const btn = e.target
+      const form = btn.previousElementSibling
+      const fieldset = form.lastChild
+
+      this.setState({
+          forms: forms + 1
+      })
+
+      if (this.state.forms > 4) {
+        btn.disabled = true
+      }
+
+      fieldset.disabled = true;
+
+      this.setState({
+          schools: schools.concat({
+              schoolName: schoolName,
+              study: study,
+              grad: grad,
+              start: start,
+              end: end,
+              id: uniqid(),
+          }),
+          schoolName: '',
+          study: '',
+          grad: false,
+          start: '',
+          end: '',
+      })
+
+      console.log(this.state)
+
     }
 
     render() {
