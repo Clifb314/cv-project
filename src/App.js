@@ -2,6 +2,7 @@ import "./App.css";
 import { Component } from "react";
 import Personal from "./components/components";
 import Education from "./components/education";
+import Experience from "./components/experience";
 
 class App extends Component {
   constructor(props) {
@@ -60,68 +61,7 @@ class App extends Component {
 
         <Education />
 
-        <form id="experience" onSubmit={this.handleSubmit}>
-          <p>Please enter information about your most recent employer</p>
-          <fieldset form="experience">
-            <label htmlFor="employ">Employer Name:</label>
-            <input
-              type="text"
-              name="employ"
-              value={experience.employ}
-              onChange={this.handleChange}
-            />
-            <label htmlFor="title">Your Title:</label>
-            <input
-              type="text"
-              name="title"
-              value={experience.title}
-              onChange={this.handleChange}
-            />
-            <label htmlFor="city">City:</label>
-            <input
-              type="text"
-              name="city"
-              value={experience.city}
-              onChange={this.handleChange}
-            />
-            <label htmlFor="start">Start Date:</label>
-            <input
-              type="date"
-              name="start"
-              value={experience.start}
-              onChange={this.handleChange}
-            />
-            <label htmlFor="end">End Date:</label>
-            <input
-              type="date"
-              name="end"
-              value={experience.end}
-              onChange={this.handleChange}
-            />
-            <label htmlFor="pay">Salary (hourly):</label>
-            <input
-              type="number"
-              name="pay"
-              min="0"
-              max="1000"
-              value={experience.pay}
-              onChange={this.handleChange}
-            />
-            <label htmlFor="reason">Reason For Leaving:</label>
-            <textarea
-              name="reason"
-              rows="2"
-              cols="40"
-              form="experience"
-              maxLength="150"
-              value={experience.reason}
-              onChange={this.handleChange}
-            />
-            <button type="submit" form="experience">
-              Submit Section
-            </button>
-          </fieldset>
-        </form>
+        <Experience />
       </div>
     );
   }

@@ -21,9 +21,9 @@ class Education extends Component {
     this.addForm = this.addForm.bind(this);
     this.increase = this.increase.bind(this);
     this.remove = this.remove.bind(this);
-    this.editBtn = this.editBtn.bind(this)
-    this.editLast = this.editLast.bind(this)
-    this.deleteLast = this.deleteLast.bind(this)
+    this.editBtn = this.editBtn.bind(this);
+    this.editLast = this.editLast.bind(this);
+    this.deleteLast = this.deleteLast.bind(this);
   }
 
   handleChange(e) {
@@ -42,7 +42,6 @@ class Education extends Component {
     fieldset.disabled = true;
     e.target.form.hidden = true;
 
-
     this.setState({
       forms: 0,
       schools: schools.concat({
@@ -60,7 +59,7 @@ class Education extends Component {
       end: "",
     });
 
-    this.remove(e)
+    this.remove(e);
     console.log(this.state);
   }
 
@@ -148,14 +147,18 @@ class Education extends Component {
     const { forms, schools } = this.state;
     let output = [];
     for (let x = 0; x < forms; x++) {
-      output.push(<div key={uniqid()}><this.displayForm /></div>);
+      output.push(
+        <div key={uniqid()}>
+          <this.displayForm />
+        </div>
+      );
     }
 
     return (
-    <div id="education">
-      <div className="forms">{output}</div>;
-    </div>
-    )
+      <div id="education">
+        <div className="forms">{output}</div>;
+      </div>
+    );
   }
 
   increase(e) {
@@ -184,34 +187,37 @@ class Education extends Component {
     });
 
     console.log(this.state);
-
   }
 
   editBtn() {
     if (this.state.forms < 1 || this.state.schools.length > 0) {
       return (
         <div id="edit">
-          <button type="button" onClick={this.editLast}>Edit</button>
-          <button type="button" onClick={this.deleteLast}>Delete</button>
+          <button type="button" onClick={this.editLast}>
+            Edit
+          </button>
+          <button type="button" onClick={this.deleteLast}>
+            Delete
+          </button>
         </div>
-      )
+      );
     }
   }
 
   deleteLast() {
-    let newList = [...this.state.schools]
-    newList.length === 1 ? newList = [] : newList.pop()
-    console.log(newList)
+    let newList = [...this.state.schools];
+    newList.length === 1 ? (newList = []) : newList.pop();
+    console.log(newList);
     this.setState({
       forms: 1,
-      schools: [newList]
-    })
+      schools: [newList],
+    });
   }
 
   editLast() {
-    const newList = [...this.state.schools]
-    const lastEntry = newList.pop()
-    console.log(newList)
+    const newList = [...this.state.schools];
+    const lastEntry = newList.pop();
+    console.log(newList);
     this.setState({
       forms: 1,
       schoolName: [lastEntry.schoolName],
@@ -220,7 +226,7 @@ class Education extends Component {
       start: [lastEntry.start],
       end: [lastEntry.end],
       schools: [newList],
-    })
+    });
   }
 
   render() {
