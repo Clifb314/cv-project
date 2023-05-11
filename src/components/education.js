@@ -21,6 +21,9 @@ class Education extends Component {
     this.addForm = this.addForm.bind(this);
     this.increase = this.increase.bind(this);
     this.remove = this.remove.bind(this);
+    this.editBtn = this.editBtn.bind(this)
+    this.editLast = this.editLast.bind(this)
+    this.deleteLast = this.deleteLast.bind(this)
   }
 
   handleChange(e) {
@@ -160,10 +163,7 @@ class Education extends Component {
 
     const btn = e.target;
 
-    // this.setState({
-    //   forms: forms + 1,
-    // });
-    if (this.state.forms > 4) {
+    if (this.state.schools.length > 4) {
       btn.disabled = true;
     }
 
@@ -187,11 +187,50 @@ class Education extends Component {
 
   }
 
+  editBtn() {
+    if (this.state.forms < 1 || this.state.schools.length > 0) {
+      return (
+        <div id="edit">
+          <button type="button" onClick={this.editLast}>Edit</button>
+          <button type="button" onClick={this.deleteLast}>Delete</button>
+        </div>
+      )
+    }
+  }
+
+  deleteLast() {
+    let newList = [...this.state.schools]
+    newList.length === 1 ? newList = [] : newList.pop()
+    console.log(newList)
+    this.setState({
+      forms: 1,
+      schools: [newList]
+    })
+  }
+
+  editLast() {
+    const newList = [...this.state.schools]
+    const lastEntry = newList.pop()
+    console.log(newList)
+    this.setState({
+      forms: 1,
+      schoolName: [lastEntry.schoolName],
+      study: [lastEntry.study],
+      grad: [lastEntry.grad],
+      start: [lastEntry.start],
+      end: [lastEntry.end],
+      schools: [newList],
+    })
+  }
+
   render() {
     return (
       <div id="educationForm">
         <p>Please enter information about your college education</p>
-        <Schools schoolList={[...this.state.schools]} />
+        <div id="submitted">
+          <Schools schoolList={[...this.state.schools]} />
+          <this.editBtn />
+        </div>
         <this.addForm />
       </div>
     );
